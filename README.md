@@ -1,131 +1,250 @@
-# API de Películas - Frontend
+# MovieHub - Plataforma de Gestión de Películas
 
-Proyecto **lp3-taller3**: Desarrollo de un sitio web interactivo para gestionar películas, usuarios y favoritos, consumiendo la API RESTful del proyecto **lp3-taller2**.
+Una aplicación web moderna construida con **Next.js 16**, **React 19** y **Tailwind CSS** que consume una API FastAPI para gestionar películas, usuarios y favoritos.
 
-## Descripción
+## Características
 
-Este proyecto consiste en desarrollar una interfaz web completa que permita a los usuarios interactuar con la API de Películas. Los estudiantes construirán un frontend moderno y responsivo que facilite:
+✅ **Gestión de Usuarios**
+- Registro e inicio de sesión
+- Visualización de perfil
+- Edición de datos personales
 
-- **Gestión de usuarios**: registro, visualización y edición de perfiles.
-- **Exploración de películas**: búsqueda avanzada, filtrado por género, director, año y clasificación.
-- **Sistema de favoritos**: marcar/desmarcar películas favoritas y visualizar colecciones personalizadas.
-- **Estadísticas**: visualización de datos sobre películas populares y preferencias de usuarios.
+✅ **Exploración de Películas**
+- Búsqueda avanzada por título y director
+- Filtrado por género, año y clasificación
+- Vista detallada de películas
 
-## Objetivos de Aprendizaje
+✅ **Sistema de Favoritos**
+- Marcar/desmarcar películas como favoritas
+- Colecciones personalizadas
+- Gestión de favoritos
 
-Al completar este taller, los estudiantes serán capaces de:
+✅ **Estadísticas**
+- Visualización de películas populares
+- Gráficos por género, clasificación y año
+- Métricas de usuario
 
-1. Consumir una API RESTful
-2. Implementar operaciones CRUD (Create, Read, Update, Delete) desde el frontend
-3. Manejar estados de la aplicación y respuestas asíncronas
-4. Validar formularios y datos de entrada
-5. Gestionar errores y proporcionar retroalimentación al usuario
-6. Crear interfaces responsivas y accesibles
-7. Implementar paginación y búsqueda en tiempo real
+## Configuración
+# frontend
+## # 1. Instalar Node 20
+curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install nodejs -y
 
-## Requisitos Previos
+# 2. Instalar PNPM globalmente
+sudo npm install -g pnpm
 
-- Tener completado y funcionando el proyecto **lp3-taller2** (API de Películas)
-- Conocimientos básicos de HTML, CSS y JavaScript
-- Familiaridad con conceptos de APIs REST
-- Navegador web moderno (Chrome, Firefox, Edge, Safari)
+# 3. Verificar versiones
+node -v
+npm -v
+pnpm -v 
+# Instalar dependencias del proyecto Node
+pnpm install
 
-## Configuración Inicial
+# Ejecutar en modo desarrollo
+pnpm dev
 
-1. **Fork** del repositorio.
+### Requisitos
+- Node.js 18+
+- API FastAPI ejecutándose (del repositorio lp3-taller2)
 
-2. **Clonar** el repositorio:
+### Instalación
 
-   ```bash
-   git clone https://github.com/TU_USUARIO/lp3-taller3.git
-   ```
+1. **Clona este repositorio**
+   \`\`\`bash
+   git clone <tu-repo>
+   cd moviehub
+   \`\`\`
 
-3. Asegúrate de que el proyecto **lp3-taller2** esté ejecutándos, verifica que la API responda en: `http://127.0.0.1:8000/docs`
+2. **Instala las dependencias**
+   \`\`\`bash
+   npm install
+   \`\`\`
 
+3. **Configura la variable de entorno**
+   
+   Copia `.env.example` a `.env.local`:
+   \`\`\`bash
+   cp .env.example .env.local
+   \`\`\`
+   
+   Edita `.env.local` y asegúrate que `NEXT_PUBLIC_API_URL` apunte a tu API:
+   \`\`\`
+   NEXT_PUBLIC_API_URL=http://localhost:8000
+   \`\`\`
 
-## Funcionalidades Requeridas
+4. **Inicia la aplicación**
+   \`\`\`bash
+   npm run dev
+   \`\`\`
 
-### 1. Módulo de Usuarios
+5. **Abre en tu navegador**
+   \`\`\`
+   http://localhost:3000
+   \`\`\`
 
-- [ ] Listar todos los usuarios con paginación
-- [ ] Formulario para crear nuevos usuarios
-- [ ] Validación de campos (nombre, correo único)
-- [ ] Editar información de usuarios existentes
-- [ ] Eliminar usuarios con confirmación
-- [ ] Búsqueda de usuarios por nombre o correo
-- [ ] Mostrar fecha de registro formateada
+## Configuración de la API
 
-    **Criterios de evaluación:**
-    
-    - Validación de correo electrónico con expresiones regulares
-    - Manejo de errores (usuario no encontrado, correo duplicado)
-    - Feedback visual al usuario (mensajes de éxito/error)
-    - Confirmación antes de eliminar
+### Opción 1: API Local (Desarrollo)
 
-### 2. Módulo de Películas
+Asegúrate de tener la API FastAPI ejecutándose en `http://localhost:8000`:
 
-- [ ] Catálogo de películas con diseño tipo tarjetas (*cards*)
-- [ ] Paginación con controles de navegación
-- [ ] Formulario para agregar nuevas películas
-- [ ] Validación de campos obligatorios
-- [ ] Editar películas existentes
-- [ ] Eliminar películas con confirmación
-- [ ] Búsqueda avanzada por: Título, Director, Género, Año
-- [ ] Filtros por clasificación (G, PG, PG-13, R)
-- [ ] Vista detallada de cada película (modal o página separada)
+\`\`\`bash
+# En otro terminal
+cd lp3-taller2
+python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+\`\`\`
 
-    **Criterios de evaluación:**
-    
-    - Diseño visual atractivo de las tarjetas de películas
-    - Implementación correcta de paginación
-    - Búsqueda funcional con actualización en tiempo real
-    - Validación de año (rango válido) y duración (número positivo)
+Luego en `.env.local`:
+\`\`\`
+NEXT_PUBLIC_API_URL=http://localhost:8000
+\`\`\`
 
-### 3. Módulo de Favoritos
+### Opción 2: API Remota (Producción)
 
-- [ ] Listar películas favoritas por usuario
-- [ ] Selector de usuario para cambiar la vista
-- [ ] Botón para marcar/desmarcar favoritos desde el catálogo
-- [ ] Indicador visual de películas ya marcadas como favoritas
-- [ ] Eliminar favoritos con confirmación
-- [ ] Contador de favoritos por usuario
-- [ ] Vista de todas las películas con indicador de favoritos
+Si desplegaste la API en Vercel u otro servicio, actualiza:
+\`\`\`
+NEXT_PUBLIC_API_URL=https://tu-api-deployada.com
+\`\`\`
 
-    **Criterios de evaluación:**
-    
-    - Sincronización correcta entre módulos (marcar favorito actualiza vistas)
-    - Prevención de duplicados
-    - Feedback inmediato al marcar/desmarcar
-    - Manejo de casos donde usuario o película no existen
+## Estructura del Proyecto
 
-### 4. Página Principal
+\`\`\`
+moviehub/
+├── app/
+│   ├── page.tsx              # Página principal con navegación
+│   ├── layout.tsx            # Layout global
+│   └── globals.css           # Estilos globales
+├── components/
+│   ├── layout/
+│   │   ├── main-layout.tsx   # Wrapper principal
+│   │   ├── header.tsx        # Encabezado con usuario
+│   │   └── sidebar.tsx       # Navegación lateral
+│   ├── pages/
+│   │   ├── dashboard.tsx     # Estadísticas
+│   │   ├── movies.tsx        # Explorador y búsqueda
+│   │   ├── favorites.tsx     # Mis favoritos
+│   │   ├── statistics.tsx    # Análisis detallados
+│   │   └── profile.tsx       # Perfil de usuario
+│   └── forms/
+│       └── login-form.tsx    # Registro e inicio sesión
+├── lib/
+│   └── api.ts                # Configuración de API
+└── .env.example              # Variables de entorno ejemplo
+\`\`\`
 
-- [ ] Página de bienvenida con descripción del sitio
-- [ ] Navegación clara hacia las diferentes secciones
-- [ ] Estadísticas generales:
-   - Total de usuarios registrados
-   - Total de películas en el catálogo
-   - Total de favoritos marcados
-   - Película más popular
-- [ ] Diseño responsivo y atractivo
+## Endpoints de API Consumidos
 
-### 5. Estadísticas y Reportes
+La aplicación consume los siguientes endpoints:
 
-- [ ] Gráficos de películas por género
-- [ ] Top 10 películas más populares
-- [ ] Usuarios más activos (más favoritos)
-- [ ] Películas recientes (últimas agregadas)
-- [ ] Distribución por clasificación
+### Usuarios
+- `GET /usuarios/` - Listar usuarios
+- `GET /usuarios/{id}` - Obtener usuario
+- `POST /usuarios/` - Crear usuario
+- `PUT /usuarios/{id}` - Actualizar usuario
+- `GET /usuarios/{id}/favoritos` - Favoritos del usuario
+- `GET /usuarios/{id}/estadisticas` - Estadísticas del usuario
 
-### 6. Funcionalidades Opcionales
+### Películas
+- `GET /peliculas/` - Listar películas
+- `GET /peliculas/{id}` - Obtener película
+- `GET /peliculas/buscar/` - Búsqueda avanzada
+- `GET /peliculas/populares/top` - Películas populares
 
-- [ ] Sistema de recomendaciones basado en favoritos
-- [ ] Modo oscuro/claro
-- [ ] Exportar listados a CSV o JSON
-- [ ] Ordenamiento de resultados (alfabético, por año, por popularidad)
-- [ ] Búsqueda con sugerencias automáticas (*autocomplete*)
-- [ ] Animaciones y transiciones suaves
-- [ ] Persistencia del usuario seleccionado en `localStorage`
-- [ ] Notificaciones tipo *toast* para acciones
+### Favoritos
+- `GET /favoritos/` - Listar favoritos
+- `GET /favoritos/usuario/{usuario_id}` - Favoritos por usuario
+- `POST /favoritos/` - Crear favorito
+- `DELETE /favoritos/{id}` - Eliminar favorito
+- `GET /favoritos/verificar/{usuario_id}/{pelicula_id}` - Verificar si es favorito
 
+## Deployment
 
+### Vercel
+
+1. **Conecta tu repositorio a Vercel**
+   \`\`\`bash
+   vercel
+   \`\`\`
+
+2. **Configura variables de entorno**
+   - Ve a Vercel Dashboard → Settings → Environment Variables
+   - Añade: `NEXT_PUBLIC_API_URL=https://tu-api-deployada.com`
+
+3. **Deploy**
+   \`\`\`bash
+   vercel --prod
+   \`\`\`
+
+### Docker
+
+\`\`\`dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+\`\`\`
+
+\`\`\`bash
+docker build -t moviehub .
+docker run -p 3000:3000 -e NEXT_PUBLIC_API_URL=http://localhost:8000 moviehub
+\`\`\`
+
+## Desarrollo
+
+### Scripts disponibles
+
+\`\`\`bash
+npm run dev      # Inicia servidor de desarrollo
+npm run build    # Compila para producción
+npm run start    # Inicia servidor de producción
+npm run lint     # Ejecuta linter
+\`\`\`
+
+### Tecnologías utilizadas
+
+- **Next.js 16** - Framework React con SSR/SSG
+- **React 19** - Interfaz de usuario
+- **Tailwind CSS v4** - Estilos
+- **Lucide React** - Iconos
+- **TypeScript** - Type safety
+- **FastAPI** - API Backend
+
+## Solución de Problemas
+
+### La API no se conecta
+- Verifica que la API está ejecutándose en `http://localhost:8000`
+- Revisa la consola del navegador (F12) para errores de CORS
+- Asegúrate que `NEXT_PUBLIC_API_URL` está correctamente configurada
+
+### "Usuario no encontrado" al iniciar sesión
+- Primero debes registrarte con un correo válido
+- Luego puedes iniciar sesión con ese mismo correo
+
+### Error de CORS
+La API debe tener CORS habilitado. En FastAPI:
+
+\`\`\`python
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "https://tu-dominio.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+\`\`\`
+
+## Licencia
+
+MIT
+
+## Soporte
+
+Si tienes preguntas o encuentras bugs, abre un issue en el repositorio.
